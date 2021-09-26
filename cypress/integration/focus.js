@@ -12,7 +12,7 @@ describe('Google Search', () => {
       if(cy.get('[href="https://www.focusservices.com/"] > .TbwUpd > .iUh30')){
             cy.log('found it')
         } else {
-            cy.log('not found')
+            cy.log('')
         }
     });
   });
