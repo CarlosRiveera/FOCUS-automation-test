@@ -1,15 +1,20 @@
+//object model to render a series of methods 
+const OMfocus = require("./OMfocus");
+
+
 describe('Google Search', () => {
 
   it('Go to google', () => {
     cy.visit('https://www.google.com');
   });
 
-  it('Type on google search `Focus Services`', () => {
-    cy.get('input[name="q"]').type('Focus Services{enter}');
+  it('Type on google search "Focus Services"', () => {
+    OMfocus.typeSearch('Focus Services')
+    cy.get('form').submit()
   });
 
   it('Verify URL of focus exist', () => {
-    if(cy.get('[href="https://www.focusservices.com/"] > .TbwUpd > .iUh30')){
+    if(cy.get('[href="https://www.focusservices.com/"]').should('exist')){
       cy.log('Link does exist')
     } else {
       cy.log('doesnt exist')
@@ -34,13 +39,12 @@ describe('Google Search', () => {
   });
   
   it('Validate “El Salvador & Nicaragua” title ', () => {
-    cy.get('h2').contains('El Salvador & Nicaragua').should('exist')
+    OMfocus.validateTitles('El Salvador & Nicaragua')
     cy.get('a[href="#asia"]').click()
   });
 
-  it('Verify if exist the “Bacolod City" ', () => {
-    cy.get('body').contains('Bacolod City, Philippines').should('exist')
+  it('Verify “Bacolod City, Philippines” text block. ', () => {
+    OMfocus.validateText('Bacolod City, Philippines')
   });
-
 
 });
